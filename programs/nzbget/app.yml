@@ -32,6 +32,8 @@
         - '{{path.stdout}}/{{pgrole}}/finished/tv'
         - '{{path.stdout}}/{{pgrole}}/incomplete/movies'
         - '{{path.stdout}}/{{pgrole}}/finished/movies'
+        - '{{path.stdout}}/{{pgrole}}/incomplete/movies4k'
+        - '{{path.stdout}}/{{pgrole}}/finished/movies4k'
         - '{{path.stdout}}/{{pgrole}}/nzb'
         - '/pg/tmp'
 
@@ -212,6 +214,20 @@
             path: '/pg/data/{{pgrole}}/nzbget.conf'
             regexp: 'Category5.DestDir\s*=.*'
             line: 'Category5.DestDir='
+            state: present
+
+        - name: Lowercase & Set Movie 4K Category
+          lineinfile:
+            path: '/pg/data/{{pgrole}}/nzbget.conf'
+            regexp: '^Category6.Name\s*=.*'
+            line: 'Category6.Name=movies4k'
+            state: present
+
+        - name: Set Location of Movies 4K
+          lineinfile:
+            path: '/pg/data/{{pgrole}}/nzbget.conf'
+            regexp: '^Category6.DestDir\s*=.*'
+            line: 'Category6.DestDir='
             state: present
 
         - name: Default User
